@@ -95,4 +95,17 @@ public class EditorActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    //methods needed
+    //Get user input from editor and save new pet into database.
+
+    private void insertPet() {
+        //read inputted fields
+        //use trim to eliminate white spaces
+        String nameString = mNameEditText.getText().toString().trim();
+        String breedString = mBreedEditText.getText().toString().trim();
+        String weightString = mWeightEditText.getText().toString().trim();
+        int weight = Integer.parseInt(weightString);
+    }
+
 }
