@@ -16,4 +16,6 @@
     <string name="gender_unknown">Unknown</string>
     <string name="gender_male">Male</string>
     <string name="gender_female">Female</string>
+    <string name="saving_error">Error with saving pet</string>
+    <string name="saving_success">Pet saved with row id:</string>
 </resources>
