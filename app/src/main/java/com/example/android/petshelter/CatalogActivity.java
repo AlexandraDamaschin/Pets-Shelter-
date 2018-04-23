@@ -7,10 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-/**
- * Created by e6420 on 1/22/2018.
- */
-
 public class CatalogActivity extends AppCompatActivity {
 
     @Override
