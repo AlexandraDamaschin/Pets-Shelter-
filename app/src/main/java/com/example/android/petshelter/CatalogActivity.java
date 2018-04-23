@@ -36,10 +36,15 @@ public class CatalogActivity extends AppCompatActivity {
         //access database
         mDbHelper = new PetDbHelper(this);
 
-        displayDatabaseInfo();
         //to see database created
         // PetDbHelper mDbHelper = new PetDbHelper(this);
         //SQLiteDatabase db = mDbHelper.getReadableDatabase();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        displayDatabaseInfo();
     }
 
     /**
