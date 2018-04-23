@@ -1,9 +1,5 @@
 package com.example.android.petshelter;
 
-/**
- * Created by e6420 on 1/22/2018.
- */
-
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.android.petshelter.data.PetContract;
+
 public class EditorActivity extends AppCompatActivity {
 
     private EditText mNameEditText;
@@ -26,7 +24,7 @@ public class EditorActivity extends AppCompatActivity {
 
     private Spinner mGenderSpinner;
 
-    private int mGender = 0;
+    private int mGender = PetContract.PetEntry.GENDER_UNKNOWN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,18 +54,18 @@ public class EditorActivity extends AppCompatActivity {
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
                     if (selection.equals(getString(R.string.gender_male))) {
-                        mGender = 1; // Male
+                        mGender = PetContract.PetEntry.GENDER_MALE; // Male
                     } else if (selection.equals(getString(R.string.gender_female))) {
-                        mGender = 2; // Female
+                        mGender = PetContract.PetEntry.GENDER_FEMALE; // Female
                     } else {
-                        mGender = 0; // Unknown
+                        mGender = PetContract.PetEntry.GENDER_UNKNOWN; // Unknown
                     }
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                mGender = 0; // Unknown
+                mGender = PetContract.PetEntry.GENDER_UNKNOWN; // Unknown
             }
         });
     }
