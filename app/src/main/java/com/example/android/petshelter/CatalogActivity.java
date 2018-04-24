@@ -2,6 +2,7 @@ package com.example.android.petshelter;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -56,20 +57,31 @@ public class CatalogActivity extends AppCompatActivity {
         //PetDbHelper mDbHelper = new PetDbHelper(this);
 
         // Create and/or open a database to read from it
-       SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         // Perform this raw SQL query "SELECT * FROM pets"
         // to get a Cursor that contains all rows from the pets table.
         //Cursor cursor = db.rawQuery("SELECT * FROM " + PetContract.PetEntry.TABLE_NAME, null);
 
         //define projection
-        String [] projection = {
+        String[] projection = {
                 PetContract.PetEntry._ID,
                 PetContract.PetEntry.COLUMN_PET_NAME,
                 PetContract.PetEntry.COLUMN_PET_BREED,
                 PetContract.PetEntry.COLUMN_PET_GENDER,
-                PetContract.PetEntry.COLUMN_PET_WEIGHT ,
+                PetContract.PetEntry.COLUMN_PET_WEIGHT,
         };
+
+        // Perform a query on the pets table
+        Cursor cursor = db.query(
+                PetContract.PetEntry.TABLE_NAME,   // The table to query
+                projection,                        // The columns to return
+                null,                      // The columns for the WHERE clause
+                null,                   // The values for the WHERE clause
+                null,                      // Don't group the rows
+                null,                       // Don't filter by row groups
+                null                     // The sort order
+        );
 
         try {
             // Display the number of rows in the Cursor (which reflects the number of rows in the
