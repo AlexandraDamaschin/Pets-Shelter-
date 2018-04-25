@@ -1,5 +1,6 @@
 package com.example.android.petshelter.data;
 
+import android.net.Uri;
 import android.provider.BaseColumns;
 
 public final class PetContract {
@@ -8,10 +9,22 @@ public final class PetContract {
     private PetContract() {
     }
 
+    //guaranteed to be unique on the device.
+    public static final String CONTENT_AUTHORITY = "com.example.android.pets";
+
+    //use CONTENT_AUTHORITY to create the base of all URI's which apps will use to contact the content provider.
+    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
+
+    //Possible path (appended to base content URI for possible URI's)
+    public static final String PATH_PETS = "pets";
+
+
     //inner class that defines the values for the pets table
     //each entry is a single pet
-
     public static final class PetEntry implements BaseColumns {
+
+        // The content URI to access the pet data in the provider
+        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_PETS);
 
         //  Name of database table for pets
         public final static String TABLE_NAME = "pets";
