@@ -1,7 +1,7 @@
 package com.example.android.petshelter;
 
 import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +16,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.android.petshelter.data.PetContract;
-import com.example.android.petshelter.data.PetDbHelper;
 
 public class EditorActivity extends AppCompatActivity {
 
@@ -116,10 +115,10 @@ public class EditorActivity extends AppCompatActivity {
         int weight = Integer.parseInt(weightString);
 
         //create db helper
-        PetDbHelper mDbHelper = new PetDbHelper(this);
+        // PetDbHelper mDbHelper = new PetDbHelper(this);
 
         //get db in write mode
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        //SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         // Create a ContentValues object
         ContentValues values = new ContentValues();
@@ -129,18 +128,29 @@ public class EditorActivity extends AppCompatActivity {
         values.put(PetContract.PetEntry.COLUMN_PET_WEIGHT, weight);
 
         // Insert a new row for pet in the database,
-        long newRowId = db.insert(PetContract.PetEntry.TABLE_NAME, null, values);
+        //long newRowId = db.insert(PetContract.PetEntry.TABLE_NAME, null, values);
+        Uri newUri = getContentResolver().insert(PetContract.PetEntry.CONTENT_URI, values);
+        if (newUri == null) {
+            // If the new content URI is null, then there was an error with insertion.
+            Toast.makeText(this, getString(R.string.editor_insert_pet_failed), Toast.LENGTH_SHORT).show();
+        } else {
+            // Otherwise, the insertion was successful and we can display a toast.
+            Toast.makeText(this, getString(R.string.editor_insert_pet_successful), Toast.LENGTH_SHORT).show();
+
+
+        }
+
 
         // Show a toast message depending on whether or not the insertion was successful
         //fail
-        if (newRowId == -1) {
-            // If the row ID is -1, then there was an error with insertion.
-            Toast.makeText(this, getString(R.string.saving_error), Toast.LENGTH_SHORT).show();
-        }
-        //success
-        else {
-            // Otherwise, the insertion was successful and we can display a toast with the row ID.
-            Toast.makeText(this, getString(R.string.saving_success) + newRowId, Toast.LENGTH_SHORT).show();
-        }
+//        if (newRowId == -1) {
+//            // If the row ID is -1, then there was an error with insertion.
+//            Toast.makeText(this, getString(R.string.saving_error), Toast.LENGTH_SHORT).show();
+//        }
+//        //success
+//        else {
+//            // Otherwise, the insertion was successful and we can display a toast with the row ID.
+//            Toast.makeText(this, getString(R.string.saving_success) + newRowId, Toast.LENGTH_SHORT).show();
+//        }
     }
 }
