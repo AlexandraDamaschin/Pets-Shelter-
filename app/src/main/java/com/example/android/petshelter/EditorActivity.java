@@ -107,6 +107,7 @@ public class EditorActivity extends AppCompatActivity {
     //Get user input from editor and save new pet into database.
 
     private void insertPet() {
+        
         //read inputted fields
         //use trim to eliminate white spaces
         String nameString = mNameEditText.getText().toString().trim();
