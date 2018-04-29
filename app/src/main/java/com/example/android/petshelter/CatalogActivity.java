@@ -21,11 +21,9 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
     // Identifier for the pet data loader
     private static final int PET_LOADER = 0;
+
     //Adapter for the ListView
     PetCursorAdapter mCursorAdapter;
-
-    //database helper to provide access to the database
-    //private PetDbHelper mDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,62 +47,13 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         View emptyView = findViewById(R.id.empty_view);
         petListView.setEmptyView(emptyView);
 
-        //access database
-        //mDbHelper = new PetDbHelper(this);
-
-        //to see database created
-        // PetDbHelper mDbHelper = new PetDbHelper(this);
-        //SQLiteDatabase db = mDbHelper.getReadableDatabase();
-
+        // Setup an Adapter to create a list item for each row of pet data in the Cursor.
         // There is no pet data yet (until the loader finishes) so pass in null for the Cursor.
         mCursorAdapter = new PetCursorAdapter(this, null);
         petListView.setAdapter(mCursorAdapter);
 
         // Kick off the loader
         getLoaderManager().initLoader(PET_LOADER, null, this);
-//        try {
-        // Create a header in the Text View that looks like this:
-        // _id - name - breed - gender - weight
-//            displayView.setText("The pets table contains " + cursor.getCount() + " pets.\n\n");
-//            displayView.append(PetContract.PetEntry._ID + " - " +
-//                    PetContract.PetEntry.COLUMN_PET_NAME + " - " +
-//                    PetContract.PetEntry.COLUMN_PET_BREED + " - " +
-//                    PetContract.PetEntry.COLUMN_PET_GENDER + " - " +
-//                    PetContract.PetEntry.COLUMN_PET_WEIGHT + "\n");
-
-        // Setup an Adapter to create a list item for each row of pet data in the Cursor.
-        //  PetCursorAdapter adapter = new PetCursorAdapter(this, cursor);
-        // Figure out the index of each column
-//            int idColumnIndex = cursor.getColumnIndex(PetContract.PetEntry._ID);
-//            int nameColumnIndex = cursor.getColumnIndex(PetContract.PetEntry.COLUMN_PET_NAME);
-//            int breedColumnIndex = cursor.getColumnIndex(PetContract.PetEntry.COLUMN_PET_BREED);
-//            int genderColumnIndex = cursor.getColumnIndex(PetContract.PetEntry.COLUMN_PET_GENDER);
-//            int weightColumnIndex = cursor.getColumnIndex(PetContract.PetEntry.COLUMN_PET_WEIGHT);
-
-        // Iterate through all the returned rows in the cursor
-//            while (cursor.moveToNext()) {
-//                // Use that index to extract the String or Int value of the word
-//                // at the current row the cursor is on.
-//                int currentID = cursor.getInt(idColumnIndex);
-//                String currentName = cursor.getString(nameColumnIndex);
-//                String currentBreed = cursor.getString(breedColumnIndex);
-//                int currentGender = cursor.getInt(genderColumnIndex);
-//                int currentWeight = cursor.getInt(weightColumnIndex);
-//                // Display the values from each column of the current row in the cursor in the TextView
-//                displayView.append(("\n" +
-//                        currentID + " - " +
-//                        currentName + " - " +
-//                        currentBreed + " - " +
-//                        currentGender + " - " +
-////                        currentWeight));
-//            }
-//        } finally {
-//            // Always close the cursor when you're done reading from it. This releases all its
-//            // resources and makes it invalid.
-//            cursor.close();
-//        }
-        // Attach the adapter to the ListView.
-        petListView.setAdapter(adapter);
     }
 
     @Override
@@ -134,24 +83,12 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     //methods needed
 
     private void insertPet() {
-        //get db in write mode
-        //SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
         //create content values
         ContentValues values = new ContentValues();
         values.put(PetContract.PetEntry.COLUMN_PET_NAME, "Toto");
         values.put(PetContract.PetEntry.COLUMN_PET_BREED, "Terrier");
         values.put(PetContract.PetEntry.COLUMN_PET_GENDER, PetContract.PetEntry.GENDER_MALE);
         values.put(PetContract.PetEntry.COLUMN_PET_WEIGHT, 7);
-
-        //insert a new row in the database
-        // The first argument for db.insert() is the pets table name.
-        // The second argument provides the name of a column in which the framework
-        // can insert NULL in the event that the ContentValues is empty (if
-        // this is set to "null", then the framework will not insert a row when
-        // there are no values).
-        // The third argument is the ContentValues object containing the info for Toto.
-        //long newRowId = db.insert(PetContract.PetEntry.TABLE_NAME, null, values);
 
         // Insert a new row for Toto into the provider using the ContentResolver.
         // Use the {@link PetEntry#CONTENT_URI} to indicate that we want to insert
