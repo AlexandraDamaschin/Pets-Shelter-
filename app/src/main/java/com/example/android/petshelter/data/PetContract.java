@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+//API Contract for the Pets app.
 public final class PetContract {
 
     //empty constructor
