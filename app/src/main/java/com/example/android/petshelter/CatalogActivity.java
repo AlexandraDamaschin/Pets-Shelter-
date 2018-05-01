@@ -19,7 +19,8 @@ import android.widget.ListView;
 
 import com.example.android.petshelter.data.PetContract;
 
-public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class CatalogActivity extends AppCompatActivity
+        implements LoaderManager.LoaderCallbacks<Cursor> {
 
     // Identifier for the pet data loader
     private static final int PET_LOADER = 0;
