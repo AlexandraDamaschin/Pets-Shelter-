@@ -90,7 +90,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 null,                   // No selection arguments
                 null);                  // Default sort order
     }
-    
+
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         // Bail early if the cursor is null or there is less than 1 row in the cursor
@@ -186,7 +186,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
                 // Save pet to database
-                insertPet();
+                savePet();
                 // Exit activity
                 finish();
                 return true;
@@ -206,7 +206,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     //methods needed
     //Get user input from editor and save new pet into database.
 
-    private void insertPet() {
+    private void savePet() {
 
         //read inputted fields
         //use trim to eliminate white spaces
@@ -215,12 +215,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         String weightString = mWeightEditText.getText().toString().trim();
         int weight = Integer.parseInt(weightString);
 
-        //create db helper
-        // PetDbHelper mDbHelper = new PetDbHelper(this);
-
-        //get db in write mode
-        //SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
         // Create a ContentValues object
         ContentValues values = new ContentValues();
         values.put(PetContract.PetEntry.COLUMN_PET_NAME, nameString);
@@ -228,18 +222,41 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         values.put(PetContract.PetEntry.COLUMN_PET_GENDER, mGender);
         values.put(PetContract.PetEntry.COLUMN_PET_WEIGHT, weight);
 
-        // Insert a new row for pet in the database,
-        //long newRowId = db.insert(PetContract.PetEntry.TABLE_NAME, null, values);
-        Uri newUri = getContentResolver().insert(PetContract.PetEntry.CONTENT_URI, values);
+        // Determine if this is a new or existing pet by checking if mCurrentPetUri is null or not
+        if (mCurrentPetUri == null) {
+            // This is a NEW pet, so insert a new pet into the provider,\
+            // returning the content URI for the new pet.
+            Uri newUri = getContentResolver().insert(PetContract.PetEntry.CONTENT_URI, values);
 
-        if (newUri == null) {
-            // If the new content URI is null, then there was an error with insertion.
-            Toast.makeText(this, getString(R.string.editor_insert_pet_failed), Toast.LENGTH_SHORT).show();
+            // Show a toast message depending on whether or not the insertion was successful.
+            if (newUri == null) {
+                // If the new content URI is null, then there was an error with insertion.
+                Toast.makeText(this, getString(R.string.editor_insert_pet_failed),
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                // Otherwise, the insertion was successful and we can display a toast.
+                Toast.makeText(this, getString(R.string.editor_insert_pet_successful),
+                        Toast.LENGTH_SHORT).show();
+            }
+
         } else {
-            // Otherwise, the insertion was successful and we can display a toast.
-            Toast.makeText(this, getString(R.string.editor_insert_pet_successful), Toast.LENGTH_SHORT).show();
-        }
+            // Otherwise this is an EXISTING pet, so update the pet with content URI: mCurrentPetUri
+            // and pass in the new ContentValues. Pass in null for the selection and selection args
+            // because mCurrentPetUri will already identify the correct row in the database that
+            // we want to modify.
+            int rowsAffected = getContentResolver().update(mCurrentPetUri, values, null, null);
 
+            // Show a toast message depending on whether or not the update was successful.
+            if (rowsAffected == 0) {
+                // If no rows were affected, then there was an error with the update.
+                Toast.makeText(this, getString(R.string.editor_update_pet_failed),
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                // Otherwise, the update was successful and we can display a toast.
+                Toast.makeText(this, getString(R.string.editor_update_pet_successful),
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
 
         // Show a toast message depending on whether or not the insertion was successful
         //fail
