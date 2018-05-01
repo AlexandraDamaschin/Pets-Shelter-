@@ -257,17 +257,5 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                         Toast.LENGTH_SHORT).show();
             }
         }
-
-        // Show a toast message depending on whether or not the insertion was successful
-        //fail
-//        if (newRowId == -1) {
-//            // If the row ID is -1, then there was an error with insertion.
-//            Toast.makeText(this, getString(R.string.saving_error), Toast.LENGTH_SHORT).show();
-//        }
-//        //success
-//        else {
-//            // Otherwise, the insertion was successful and we can display a toast with the row ID.
-//            Toast.makeText(this, getString(R.string.saving_success) + newRowId, Toast.LENGTH_SHORT).show();
-//        }
     }
 }
