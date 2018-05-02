@@ -1,6 +1,6 @@
 PetShelter is a app which allow you to keep track of your pets and also to share your data with other people. 
 
-Pet Shelter has an interactive interface which allow you to see all the pets inserted by you. 
+This app has an interactive interface which allow you to see all the pets inserted by you. 
 
 ![alt text](https://github.com/AlexandraDamaschin/PetsShelter/blob/master/Main.PNG)
 
