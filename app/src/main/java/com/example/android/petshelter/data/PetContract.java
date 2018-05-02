@@ -12,14 +12,13 @@ public final class PetContract {
     }
 
     //guaranteed to be unique on the device.
-    public static final String CONTENT_AUTHORITY = "com.example.android.pets";
+    public static final String CONTENT_AUTHORITY = "com.example.android.petshelter";
 
     //use CONTENT_AUTHORITY to create the base of all URI's which apps will use to contact the content provider.
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
     //Possible path (appended to base content URI for possible URI's)
-    public static final String PATH_PETS = "pets";
-
+    public static final String PATH_PETS = "petShelter";
 
     //inner class that defines the values for the pets table
     //each entry is a single pet
